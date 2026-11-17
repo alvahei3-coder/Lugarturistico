@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ruta Turística de Bolivia</title>
+<meta name="description" content="Juego educativo tipo Monopoly con lugares turísticos de Bolivia. Responde preguntas para comprar casillas.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ruta Turística de Bolivia">
+<meta property="og:description" content="Juego educativo tipo Monopoly con lugares turísticos de Bolivia. ¡Responde y compra!">
+<meta property="og:image" content="https://alvahei3-coder.github.io/Lugarturistico/preview.png">
+<meta property="og:url" content="https://alvahei3-coder.github.io/Lugarturistico/">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Rubik:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#e3f1ee;--cell:#fff;--ink:#2a1a3a;--mute:#5c5470;--line:#b9cfcb;--card:#fff;--acc:#c2185b;--acc2:#00838f;--ok:#2e7d32;--bad:#c62828;--center:#fff7e0;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10201f;--cell:#1b2d2c;--ink:#eaf3f1;--mute:#a9bcb8;--line:#33504d;--card:#1b2d2c;--center:#243a38;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10201f;--cell:#1b2d2c;--ink:#eaf3f1;--mute:#a9bcb8;--line:#33504d;--card:#1b2d2c;--center:#243a38;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,system-ui,sans-serif;line-height:1.45}
+h1,h2,h3{font-family:"Rozha One",Georgia,serif;font-weight:400;margin:0}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:.6em 1.1em;background:var(--acc);color:#fff;font-weight:600}
+button:hover{filter:brightness(1.1)}button:focus-visible,input:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+button.alt{background:transparent;color:var(--ink);border:2px solid var(--line)}
+button:disabled{opacity:.5;cursor:default}
+.wrap{max-width:1040px;margin:0 auto;padding:14px}
+#setup{max-width:520px;margin:6vh auto;background:var(--card);border-radius:18px;padding:26px;border-top:10px solid var(--acc)}
+#setup h1{font-size:2rem;color:var(--acc)}
+#setup p{color:var(--mute)}
+.row{display:flex;gap:8px;align-items:center;margin:8px 0}
+.row i{width:22px;height:22px;border-radius:50%;flex:none;border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+input{font:inherit;padding:.5em .7em;border-radius:8px;border:2px solid var(--line);background:var(--bg);color:var(--ink);flex:1;min-width:0}
+.cnt button{padding:.4em .9em}.cnt button.on{background:var(--acc2)}
+#game{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;justify-content:center}
+#board{display:grid;grid-template:repeat(7,1fr)/repeat(7,1fr);width:min(100%,660px);aspect-ratio:1;gap:2px;background:var(--line);border-radius:12px;overflow:hidden;flex:1 1 360px}
+.c{background:var(--cell);position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2px;min-width:0;overflow:hidden}
+.c .band{position:absolute;top:0;left:0;right:0;height:7px}
+.c .em{font-size:clamp(14px,3.2vw,26px);line-height:1;margin-top:6px}
+.c .nm{font-size:clamp(7px,1.45vw,11px);font-weight:600;line-height:1.1;margin-top:2px}
+.c .pr{font-size:clamp(7px,1.4vw,11px);color:var(--mute)}
+.c.corner{background:var(--center)}
+.tk{position:absolute;bottom:2px;left:0;right:0;display:flex;justify-content:center;gap:2px}
+.tk b{width:clamp(11px,2.4vw,20px);height:clamp(11px,2.4vw,20px);border-radius:50%;border:2px solid #fff;color:#fff;font-size:clamp(6px,1.3vw,10px);display:grid;place-items:center;transition:transform .2s}
+.tk b.me{transform:scale(1.25)}
+#mid{grid-area:2/2/7/7;background:var(--center);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:10px;text-align:center}
+#mid h2{font-size:clamp(1.1rem,3.6vw,2rem);color:var(--acc)}
+#msg{font-size:clamp(.75rem,1.9vw,1rem);min-height:2.6em;max-width:90%}
+#dice{display:flex;gap:10px}
+.die{width:clamp(38px,8vw,64px);height:clamp(38px,8vw,64px);background:#fff;color:#222;border-radius:12px;display:grid;place-items:center;font-size:clamp(24px,5.5vw,44px);box-shadow:0 3px 0 #0003}
+.die.roll{animation:sh .4s}
+@keyframes sh{25%{transform:rotate(-18deg)}75%{transform:rotate(18deg)}}
+#side{flex:1 1 240px;max-width:340px;display:flex;flex-direction:column;gap:8px}
+.pl{background:var(--card);border-radius:12px;padding:10px 12px;border-left:8px solid;opacity:.75}
+.pl.cur{opacity:1;box-shadow:0 0 0 3px var(--acc2)}
+.pl b{display:flex;justify-content:space-between}
+.pl small{color:var(--mute);display:block}
+#hd{font-size:.9rem;color:var(--mute);text-align:center;margin-bottom:4px}
+#modal{position:fixed;inset:0;background:#000a;display:grid;place-items:center;padding:14px;z-index:20}
+#modal[hidden]{display:none}
+#mc{background:var(--card);border-radius:18px;max-width:480px;width:100%;max-height:92vh;overflow:auto;padding:0 0 18px}
+#mc .hd{padding:16px 18px;color:#fff}
+#mc .hd h3{font-size:1.5rem}
+#mc .bd{padding:14px 18px 0}
+#mc .fact{margin:0 0 12px}
+#mc .q{font-weight:600;margin:10px 0}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;background:var(--bg);color:var(--ink);border:2px solid var(--line)}
+.opt.ok{background:var(--ok);color:#fff;border-color:var(--ok)}
+.opt.bad{background:var(--bad);color:#fff;border-color:var(--bad)}
+.fb{margin:10px 0;font-weight:600}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+@media (prefers-reduced-motion:reduce){.die.roll{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section id="setup">
+  <h1>Ruta Turística de Bolivia</h1>
+  <p>Recorre el país, compra lugares turísticos y aprende sobre ellos. Para comprar una casilla debes responder bien su pregunta. Gana quien tenga más dinero y propiedades después de 10 rondas.</p>
+  <div class="row cnt" id="cnt"><span>Jugadores:</span></div>
+  <div id="names"></div>
+  <div class="acts"><button id="go">Empezar a jugar</button></div>
+</section>
+<section id="game" hidden>
+  <div style="flex:1 1 360px;max-width:660px">
+    <div id="hd"></div>
+    <div id="board"></div>
+  </div>
+  <div id="side"></div>
+</section>
+</div>
+<div id="modal" hidden><div id="mc" role="dialog" aria-modal="true"></div></div>
+<script>
+var COL=["#d32f2f","#1976d2","#2e7d32","#f57c00"];
+var DEP={"La Paz":"#c2185b","Cochabamba":"#f9a825","Potosí":"#1565c0","Chuquisaca":"#7b1fa2","Oruro":"#e64a19","Tarija":"#6d4c41","Beni":"#2e7d32","Santa Cruz":"#00838f"};
+var PL=[
+{n:"Isla del Sol",e:"☀️",d:"La Paz",p:100,f:"Está en el lago Titicaca, el lago navegable más alto del mundo. Según la tradición, allí nació el Inca Manco Cápac.",q:"¿En qué lago está la Isla del Sol?",o:["Lago Poopó","Lago Titicaca","Laguna Verde"],a:1},
+{n:"Tiwanaku",e:"🗿",d:"La Paz",p:120,f:"Fue el centro ceremonial de la cultura tiwanakota y es Patrimonio de la Humanidad desde el año 2000.",q:"¿Cuál es la pieza de piedra más famosa de Tiwanaku?",o:["Puerta del Sol","Arco del Triunfo","Puerta de Alcalá"],a:0},
+{n:"Valle de la Luna",e:"🌙",d:"La Paz",p:100,f:"Son formaciones de arcilla y arena que el agua y el viento fueron esculpiendo, en las afueras de la ciudad de La Paz.",q:"¿Cerca de qué ciudad queda el Valle de la Luna?",o:["Sucre","La Paz","Trinidad"],a:1},
+{n:"Parque Madidi",e:"🐆",d:"La Paz",p:180,f:"Es uno de los parques con más biodiversidad del planeta y une los Andes con la Amazonía.",q:"¿Por qué es famoso el Parque Madidi?",o:["Por sus desiertos de sal","Por su enorme biodiversidad","Por sus volcanes activos"],a:1},
+{n:"Cristo de la Concordia",e:"✝️",d:"Cochabamba",p:140,f:"Se alza sobre el cerro San Pedro y es una de las estatuas de Cristo más grandes del mundo.",q:"¿En qué ciudad está el Cristo de la Concordia?",o:["Cochabamba","Santa Cruz","Oruro"],a:0},
+{n:"Torotoro",e:"🦕",d:"Potosí",p:140,f:"Este parque nacional conserva huellas de dinosaurios de millones de años, además de cañones y cavernas.",q:"¿Qué puedes ver en Torotoro?",o:["Huellas de dinosaurios","Glaciares","Pirámides mayas"],a:0},
+{n:"Casa de la Libertad",e:"🏛️",d:"Chuquisaca",p:160,f:"En Sucre, en este edificio se firmó el Acta de la Independencia de Bolivia el 6 de agosto de 1825.",q:"¿En qué año se firmó la independencia de Bolivia?",o:["1809","1825","1952"],a:1},
+{n:"Cerro Rico",e:"⛏️",d:"Potosí",p:180,f:"La plata de esta montaña enriqueció al imperio español. La ciudad de Potosí es Patrimonio de la Humanidad.",q:"¿Qué metal se extrajo en gran cantidad del Cerro Rico?",o:["Oro","Plata","Petróleo"],a:1},
+{n:"Salar de Uyuni",e:"🧂",d:"Potosí",p:240,f:"Es el salar más grande del mundo (cerca de 10.000 km²). En época de lluvia parece un espejo gigante.",q:"¿Qué es el Salar de Uyuni?",o:["Un volcán","El salar más grande del mundo","El río más largo"],a:1},
+{n:"Laguna Colorada",e:"🦩",d:"Potosí",p:200,f:"Sus aguas se ven rojizas y en ella viven flamencos. Está dentro de la Reserva Eduardo Avaroa.",q:"¿Qué aves famosas viven en la Laguna Colorada?",o:["Pingüinos","Flamencos","Loros"],a:1},
+{n:"Carnaval de Oruro",e:"🎭",d:"Oruro",p:200,f:"Es una gran fiesta con danzas y trajes. La UNESCO la proclamó Obra Maestra del Patrimonio Oral e Intangible en 2001.",q:"¿Qué danza es símbolo del Carnaval de Oruro?",o:["La Diablada","El tango","El flamenco"],a:0},
+{n:"Valle de la Concepción",e:"🍇",d:"Tarija",p:160,f:"Cerca de la ciudad de Tarija, es famoso por sus viñedos, sus vinos y el singani.",q:"¿Qué es famoso en los valles de Tarija?",o:["Los viñedos y el singani","Los glaciares","Las minas de estaño"],a:0},
+{n:"Pampas del Yacuma",e:"🐊",d:"Beni",p:160,f:"Cerca de Rurrenabaque, en el río Yacuma se ven caimanes, delfines rosados y monos.",q:"¿Qué animal puedes ver en las pampas del Yacuma?",o:["Pingüinos","Delfines rosados","Osos polares"],a:1},
+{n:"Fuerte de Samaipata",e:"🪨",d:"Santa Cruz",p:140,f:"Es una gran roca tallada por culturas antiguas. Es Patrimonio de la Humanidad desde 1998.",q:"¿En qué departamento está el Fuerte de Samaipata?",o:["Pando","Santa Cruz","Tarija"],a:1},
+{n:"Misiones Jesuíticas",e:"⛪",d:"Santa Cruz",p:160,f:"Son pueblos de la Chiquitania con iglesias de madera. Allí se conserva y se toca música barroca.",q:"¿Con qué tipo de música se relacionan las Misiones de Chiquitos?",o:["Barroca","Rock","Reggaetón"],a:0},
+{n:"Noel Kempff Mercado",e:"💦",d:"Santa Cruz",p:200,f:"Parque nacional con selva, mesetas de roca y la catarata El Encanto.",q:"¿En qué departamento está el Parque Noel Kempff Mercado?",o:["Oruro","Potosí","Santa Cruz"],a:2}
+];
+var SQ=[
+{q:"¿Cuál es la capital constitucional de Bolivia?",o:["La Paz","Sucre","Cochabamba"],a:1},
+{q:"¿Cuál es la sede de gobierno de Bolivia?",o:["La Paz","Sucre","Santa Cruz"],a:0},
+{q:"¿Cuántos departamentos tiene Bolivia?",o:["7","9","12"],a:1},
+{q:"¿Qué colores tiene la bandera de Bolivia?",o:["Azul, blanco y rojo","Rojo, amarillo y verde","Verde, blanco y negro"],a:1},
+{q:"¿Qué cordillera atraviesa Bolivia por el oeste?",o:["Los Andes","Los Alpes","Los Apalaches"],a:0},
+{q:"¿Qué ave grande es símbolo de los Andes?",o:["El cóndor","El pingüino","El flamenco rosado"],a:0},
+{q:"¿Qué día se celebra el Día del Mar en Bolivia?",o:["6 de agosto","23 de marzo","21 de febrero"],a:1},
+{q:"¿Qué animal andino da lana y sirve para cargar?",o:["La llama","El jaguar","El caimán"],a:0}
+];
+var T=["start",0,1,"sur",2,3,"fair",4,5,"sur",6,7,"rest",8,9,"sur",10,11,"toll",12,13,14,"sur",15];
+var MAXR=10,START=1000,G,sel=2;
+function $(i){return document.getElementById(i)}
+function h(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function pos(i){if(i<=6)return[1,i+1];if(i<=12)return[i-5,7];if(i<=18)return[7,19-i];return[25-i,1]}
+function shuf(a){return a.map(function(v,i){return i}).sort(function(){return Math.random()-.5})}
+function rent(c){return PL[c].p/5}
+/* ---------- inicio ---------- */
+function names(){var b=$("names");b.innerHTML="";for(var i=0;i<sel;i++){var r=h("div","row"),d=h("i");d.style.background=COL[i];var n=h("input");n.value="Jugador "+(i+1);n.id="n"+i;n.maxLength=14;n.setAttribute("aria-label","Nombre del jugador "+(i+1));r.append(d,n);b.append(r)}
+ [].forEach.call($("cnt").querySelectorAll("button"),function(x){x.className=+x.textContent===sel?"alt on":"alt"})}
+[2,3,4].forEach(function(n){var b=h("button","alt",n);b.onclick=function(){sel=n;names()};$("cnt").append(b)});
+names();
+$("go").onclick=function(){
+ G={pl:[],cur:0,round:1,own:{},busy:false};
+ for(var i=0;i<sel;i++)G.pl.push({name:$("n"+i).value.trim()||"Jugador "+(i+1),col:COL[i],money:START,pos:0,props:[]});
+ $("setup").hidden=true;$("game").hidden=false;build();render()};
+/* ---------- tablero ---------- */
+function build(){var b=$("board");b.innerHTML="";
+ T.forEach(function(t,i){var c=h("div","c"),p=pos(i);c.id="c"+i;c.style.gridRow=p[0];c.style.gridColumn=p[1];
+  if(typeof t==="number"){var L=PL[t],bd=h("div","band");bd.style.background=DEP[L.d];c.append(bd,h("div","em",L.e),h("div","nm",L.n),h("div","pr","$"+L.p))}
+  else{c.className+=" corner";var m={start:["🏁","Salida +$200"],fair:["🎪","Feria de la Alasita +$100"],rest:["☕","Descanso"],toll:["🚧","Bloqueo −$50"],sur:["❓","Sorpresa"]}[t];c.append(h("div","em",m[0]),h("div","nm",m[1]))}
+  c.append(h("div","tk"));b.append(c)});
+ var mid=h("div");mid.id="mid";mid.append(h("h2",null,"Ruta Turística de Bolivia"));
+ var dc=h("div");dc.id="dice";dc.append(h("div","die","🎲"),h("div","die","🎲"));
+ var m=h("div");m.id="msg";var bt=h("button",null,"Tirar dados");bt.id="roll";bt.onclick=roll;
+ mid.append(dc,m,bt);b.append(mid)}
+function render(){var P=G.pl[G.cur];
+ $("hd").textContent="Ronda "+G.round+" de "+MAXR;
+ [].forEach.call(document.querySelectorAll(".tk"),function(t){t.innerHTML=""});
+ for(var i=0;i<24;i++){var c=$("c"+i);c.style.boxShadow="";c.style.outline=""}
+ for(var k in G.own){var o=G.pl[G.own[k]];var ci=T.indexOf(+k);$("c"+ci).style.boxShadow="inset 0 0 0 3px "+o.col}
+ G.pl.forEach(function(p,i){var b=h("b",i===G.cur?"me":"",p.name[0].toUpperCase());b.style.background=p.col;$("c"+p.pos).querySelector(".tk").append(b)});
+ var s=$("side");s.innerHTML="";
+ G.pl.forEach(function(p,i){var d=h("div","pl"+(i===G.cur?" cur":""));d.style.borderColor=p.col;var b=h("b");b.append(h("span",null,p.name),h("span",null,"$"+p.money));d.append(b,h("small",null,p.props.length?p.props.map(function(x){return PL[x].n}).join(", "):"Sin propiedades"));s.append(d)});
+ $("msg").textContent=G.busy?$("msg").textContent:G.pl[G.cur].name+", es tu turno.";
+ $("roll").disabled=G.busy}
+/* ---------- turno ---------- */
+function say(t){$("msg").textContent=t}
+function roll(){if(G.busy)return;G.busy=true;$("roll").disabled=true;
+ var a=1+Math.floor(Math.random()*6),b=1+Math.floor(Math.random()*6),F="⚀⚁⚂⚃⚄⚅",d=document.querySelectorAll(".die");
+ d.forEach(function(x){x.classList.remove("roll");void x.offsetWidth;x.classList.add("roll")});
+ d[0].textContent=F[a-1];d[1].textContent=F[b-1];say(G.pl[G.cur].name+" sacó "+(a+b)+".");
+ setTimeout(function(){move(a+b)},500)}
+function move(n){var p=G.pl[G.cur],k=0;
+ var t=setInterval(function(){p.pos=(p.pos+1)%24;if(p.pos===0){p.money+=200;say(p.name+" pasa por la Salida y gana $200.")}render();
+  if(++k>=n){clearInterval(t);setTimeout(land,300)}},220)}
+function pay(from,amt,to){var x=Math.min(amt,from.money);from.money-=x;if(to)to.money+=x;return x}
+function end(){var n=G.pl.length;G.cur=(G.cur+1)%n;if(G.cur===0)G.round++;
+ if(G.round>MAXR){return finish()}G.busy=false;render()}
+/* ---------- ventanas ---------- */
+function open(head,color,title){var m=$("mc");m.innerHTML="";var hd=h("div","hd");hd.style.background=color;hd.append(h("h3",null,title));if(head)hd.append(h("div",null,head));var bd=h("div","bd");m.append(hd,bd);$("modal").hidden=false;return bd}
+function info(title,color,text,cb,label){var b=open("",color,title);b.append(h("p","fact",text));var a=h("div","acts"),k=h("button",null,label||"Continuar");k.onclick=function(){$("modal").hidden=true;cb()};a.append(k);b.append(a);k.focus()}
+function ask(q,bd,cb){bd.append(h("div","q",q.q));var order=shuf(q.o),done=false,box=h("div");
+ order.forEach(function(i){var b=h("button","opt",q.o[i]);b.onclick=function(){if(done)return;done=true;var ok=i===q.a;
+  b.className="opt "+(ok?"ok":"bad");if(!ok)[].forEach.call(box.children,function(x){if(x.textContent===q.o[q.a])x.className="opt ok"});
+  var fb=h("div","fb",ok?"¡Correcto! 🎉":"Casi. La respuesta correcta es: "+q.o[q.a]);bd.append(fb);
+  var a=h("div","acts"),k=h("button",null,"Continuar");k.onclick=function(){cb(ok)};a.append(k);bd.append(a);k.focus()};box.append(b)});
+ bd.append(box)}
+function land(){var p=G.pl[G.cur],t=T[p.pos];
+ if(t==="start")return info("Salida","#c2185b","Estás en la Salida. Buen comienzo.",end);
+ if(t==="fair"){p.money+=100;return info("Feria de la Alasita","#f9a825","En la Alasita se compran miniaturas de lo que uno desea tener durante el año. Ganas $100.",end)}
+ if(t==="rest")return info("Descanso","#00838f","Tomas un descanso y un api con pastel. No pasa nada.",end);
+ if(t==="toll"){var x=pay(p,50);return info("Bloqueo en el camino","#6d4c41","Te quedas atrapado en un bloqueo y gastas $"+x+" en comida y gasolina.",end)}
+ if(t==="sur"){var q=SQ[Math.floor(Math.random()*SQ.length)],bd=open("Acierta y ganas $100. Si fallas, pierdes $50.","#6a1b9a","❓ Pregunta sorpresa");
+  return ask(q,bd,function(ok){$("modal").hidden=true;if(ok)p.money+=100;else pay(p,50);end()})}
+ var L=PL[t],bd=open(L.d+" · Precio $"+L.p+" · Alquiler $"+rent(t),DEP[L.d],L.e+" "+L.n);bd.append(h("p","fact",L.f));
+ var ow=G.own[t];
+ if(ow===undefined){bd.append(h("div","mute","Responde bien para poder comprarla."));
+  return ask(L,bd,function(ok){
+   if(!ok){return info("No la compras","#5c5470","Fallaste la pregunta, así que no puedes comprar "+L.n+". Queda libre para otro jugador.",end)}
+   if(p.money<L.p)return info("No te alcanza","#5c5470","Respondiste bien, pero te faltan $"+(L.p-p.money)+" para comprar "+L.n+".",end);
+   var b2=open("","#2e7d32","¡Respuesta correcta!");b2.append(h("p","fact","¿Quieres comprar "+L.n+" por $"+L.p+"? Tienes $"+p.money+"."));
+   var a=h("div","acts"),y=h("button",null,"Comprar"),n=h("button","alt","No comprar");
+   y.onclick=function(){p.money-=L.p;p.props.push(t);G.own[t]=G.cur;$("modal").hidden=true;end()};n.onclick=function(){$("modal").hidden=true;end()};
+   a.append(y,n);b2.append(a);y.focus()})}
+ if(ow===G.cur){var a=h("div","acts"),k=h("button",null,"Continuar");k.onclick=function(){$("modal").hidden=true;end()};bd.append(h("div","fb","Es tuya. ¡Bienvenido a tu lugar turístico!"),a);a.append(k);return}
+ var o=G.pl[ow];bd.append(h("div","fb","Es de "+o.name+". Responde bien y pagas solo la mitad del alquiler ($"+rent(t)/2+")."));
+ ask(L,bd,function(ok){var r=ok?rent(t)/2:rent(t),x=pay(p,r,o);$("modal").hidden=true;
+  info("Pagas alquiler",DEP[L.d],"Pagas $"+x+" a "+o.name+".",end)})}
+function finish(){var r=G.pl.map(function(p){return{p:p,w:p.money+p.props.reduce(function(s,x){return s+PL[x].p},0)}}).sort(function(a,b){return b.w-a.w});
+ var bd=open("Después de "+MAXR+" rondas","#c2185b","🏆 ¡Fin del juego!");
+ bd.append(h("p","fact","Ganó "+r[0].p.name+" con $"+r[0].w+" (dinero + valor de sus propiedades)."));
+ r.forEach(function(x,i){var d=h("div","pl",(i+1)+". "+x.p.name+": $"+x.w+" · "+x.p.props.length+" lugares");d.style.borderColor=x.p.col;d.style.opacity=1;d.style.marginBottom="6px";bd.append(d)});
+ var a=h("div","acts"),k=h("button",null,"Jugar otra vez");k.onclick=function(){$("modal").hidden=true;$("game").hidden=true;$("setup").hidden=false};a.append(k);bd.append(a)}
+</script>
+</body>
+</html>
